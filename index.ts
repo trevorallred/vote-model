@@ -1,3 +1,2 @@
-import {Question} from "./lib/Question";
-
-export default Question;
+export * from "./lib/Question";
+export * from "./lib/Vote";
