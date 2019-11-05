@@ -1,0 +1,22 @@
+{
+  "name": "vote-model",
+  "version": "1.0.0",
+  "description": "Data type used to communicate between the fronend and backend",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trevorallred/vote-model.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/trevorallred/vote-model/issues"
+  },
+  "homepage": "https://github.com/trevorallred/vote-model#readme",
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  }
+}
