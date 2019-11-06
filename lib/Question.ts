@@ -4,10 +4,12 @@ export type Question = {
     short?: string,
     dependsOnQuestionID?: string,
     answers: Answer[],
-    validAnswers?: string[]
+    validAnswers?: string[],
+    invalidAnswers?: string[],
 }
 
 export interface Answer {
     id: string,
     long: string,
+    short?: string,
 }
