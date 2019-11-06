@@ -11,3 +11,12 @@ export declare type Vote = {
     questionID: string;
     answerID: string;
 };
+export declare type RelatedAnswersStatsResponse = {
+    answers: Record<string, RelatedAnswerStats[]>;
+};
+export declare type RelatedAnswerStats = {
+    percent: number;
+    label: string;
+    questionID: string;
+    answerID: string;
+};
