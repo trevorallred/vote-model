@@ -2,6 +2,7 @@ export declare type Question = {
     id: string;
     long: string;
     short?: string;
+    tag?: string;
     dependsOnQuestionID?: string;
     answers: Answer[];
     validAnswers?: string[];
