@@ -9,7 +9,6 @@ export type AnswerStats = {
 }
 
 export type Vote = {
-    userID: string,
     questionID: string,
     answerID: string,
 }

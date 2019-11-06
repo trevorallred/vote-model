@@ -7,7 +7,6 @@ export declare type AnswerStats = {
     percent: number;
 };
 export declare type Vote = {
-    userID: string;
     questionID: string;
     answerID: string;
 };
