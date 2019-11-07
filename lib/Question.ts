@@ -6,7 +6,6 @@ export type Question = {
     dependsOnQuestionID?: string,
     answers: Answer[],
     validAnswers?: string[],
-    invalidAnswers?: string[],
 }
 
 export interface Answer {
