@@ -9,6 +9,7 @@ export declare type AnswerStats = {
 export declare type Vote = {
     questionID: string;
     answerID: string;
+    userID?: string;
 };
 export declare type RelatedAnswersStatsResponse = {
     answers: Record<string, RelatedAnswerStats[]>;

@@ -11,6 +11,7 @@ export type AnswerStats = {
 export type Vote = {
     questionID: string,
     answerID: string,
+    userID?: string
 }
 
 export type RelatedAnswersStatsResponse = {
