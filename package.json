@@ -1,22 +1,22 @@
 {
   "name": "votesha-model",
   "version": "1.0.0",
-  "description": "Data type used to communicate between the frontend and backend",
+  "description": "Data types used to communicate between the Votesha frontend and backend",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/trevorallred/vote-model.git"
-  },
+  "private": true,
   "keywords": [],
   "bugs": {
     "url": "https://github.com/trevorallred/vote-model/issues"
   },
   "homepage": "https://github.com/trevorallred/vote-model#readme",
   "devDependencies": {
+    "np": "^6.5.0",
     "typescript": "^3.7.2"
+  },
+  "dependencies": {
   }
 }
