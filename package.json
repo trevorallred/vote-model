@@ -1,7 +1,7 @@
 {
-  "name": "vote-model",
+  "name": "votesha-model",
   "version": "1.0.0",
-  "description": "Data type used to communicate between the fronend and backend",
+  "description": "Data type used to communicate between the frontend and backend",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
