@@ -14,9 +14,9 @@
   },
   "homepage": "https://github.com/trevorallred/vote-model#readme",
   "devDependencies": {
-    "np": "^6.5.0",
     "typescript": "^3.7.2"
   },
   "dependencies": {
+    "np": "^6.5.0"
   }
 }
