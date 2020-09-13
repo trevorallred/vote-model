@@ -1,3 +1,4 @@
+export declare const QUESTION_API = "question";
 export declare type Question = {
     id: string;
     long: string;

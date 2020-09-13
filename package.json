@@ -1,6 +1,6 @@
 {
   "name": "votesha-model",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Data types used to communicate between the Votesha frontend and backend",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,6 @@
     "build": "tsc",
     "test": "echo no tests"
   },
-  "private": true,
   "keywords": [],
   "bugs": {
     "url": "https://github.com/trevorallred/vote-model/issues"

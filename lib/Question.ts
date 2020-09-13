@@ -1,3 +1,5 @@
+export const QUESTION_API = "question";
+
 export type Question = {
     id: string,
     long: string,
