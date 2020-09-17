@@ -18,7 +18,7 @@ export interface Profile extends User {
 export interface UserQuery {
 }
 
-interface UserAPI {
+export interface UserAPI {
   queryUsers(query: UserQuery): Promise<User[]>
   getUser(userID: UserID): Promise<User>
   getProfile(): Promise<Profile>
