@@ -53,7 +53,7 @@ export interface QuestionQuery {
   offset?: number,
 }
 
-interface QuestionAPI {
+export interface QuestionAPI {
   getQuestions(mode: string): Promise<QuestionWithVote[]>
   queryQuestions(query: QuestionQuery): Promise<QuestionWithVote[]>
   getQuestion(id: QuestionID): Promise<QuestionWithVote>
@@ -109,7 +109,7 @@ export type QuestionWithVote = {
   vote?: Vote,
 }
 
-interface VoteAPI {
+export interface VoteAPI {
   getVote(questionID: QuestionID, userID: UserID): Promise<Vote>
   postVote(vote: Vote): Promise<QuestionWithVote>
   deleteVote(vote: Vote): Promise<boolean>

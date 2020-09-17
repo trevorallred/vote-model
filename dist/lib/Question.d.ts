@@ -39,6 +39,15 @@ export interface QuestionQuery {
     limit?: number;
     offset?: number;
 }
+export interface QuestionAPI {
+    getQuestions(mode: string): Promise<QuestionWithVote[]>;
+    queryQuestions(query: QuestionQuery): Promise<QuestionWithVote[]>;
+    getQuestion(id: QuestionID): Promise<QuestionWithVote>;
+    updateQuestion(question: Question): Promise<Question>;
+    insertQuestion(question: Question): Promise<Question>;
+    deleteQuestion(questionID: QuestionID): Promise<boolean>;
+    getQuestionRelatedAnswers(questionID: QuestionID): Promise<RelatedAnswersStatsResponse>;
+}
 export declare type TagStub = string;
 export interface Tag {
     stub: TagStub;
@@ -70,6 +79,11 @@ export declare type QuestionWithVote = {
     voteStats?: VoteStats;
     vote?: Vote;
 };
+export interface VoteAPI {
+    getVote(questionID: QuestionID, userID: UserID): Promise<Vote>;
+    postVote(vote: Vote): Promise<QuestionWithVote>;
+    deleteVote(vote: Vote): Promise<boolean>;
+}
 export interface Comment {
     id: CommentID;
     questionID: QuestionID;

@@ -23,3 +23,8 @@ npm run build
 git push
 npm publish
 ```
+
+Then on the source projects, run
+```
+yarn upgrade votesha-model
+```
