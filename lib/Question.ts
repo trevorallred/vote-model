@@ -1,3 +1,5 @@
+import { UserID } from "./User";
+
 export const QUESTION_API = "question";
 
 export type CommentID = string;
@@ -9,51 +11,57 @@ export type CommentID = string;
 export type QuestionID = string;
 export type AnswerID = string;
 
-export type QuestionFilter = {
-  showNew: boolean,
-  showAnswered: boolean, // Includes "Other"
-  showSkipped: boolean,
-  tag: TagStub
-}
-
 export type Question = {
-    id: QuestionID,
-    long: string,
-    short?: string,
-    tags?: TagStub[],
-    dependsOnQuestionID?: QuestionID,
-    answers: Answer[],
-    validAnswers?: AnswerID[],
+  id: QuestionID,
+  long: string,
+  short?: string,
+  tags?: TagStub[],
+  dependsOnQuestionID?: QuestionID,
+  answers: Answer[],
+  validAnswers?: AnswerID[],
 }
 
 export interface Answer {
-    id: AnswerID,
-    long: string,
-    short?: string,
+  id: AnswerID,
+  long: string,
+  short?: string,
 }
 
 export enum ExtraAnswers {
-    OTHER = "other",
-    UNSURE = "unsure",
-    SKIP = "skip",
+  OTHER = "other",
+  UNSURE = "unsure",
+  SKIP = "skip",
 }
 
-export type AnswerStats = {
-    votes: number,
-    percent: number
+export interface RelatedAnswersStatsResponse {
+  answers: Record<AnswerID, RelatedAnswerStats[]>,
 }
 
-export type RelatedAnswersStatsResponse = {
-  answers: Record<string, RelatedAnswerStats[]>,
-}
-
-export type RelatedAnswerStats = {
+export interface RelatedAnswerStats {
   questionID: QuestionID,
   answerID: AnswerID,
   label: string,
   percent: number,
 }
 
+export interface QuestionQuery {
+  showNew: boolean,
+  showAnswered: boolean, // Includes "Other"
+  showSkipped: boolean,
+  tag: TagStub,
+  limit?: number,
+  offset?: number,
+}
+
+interface QuestionAPI {
+  getQuestions(mode: string): Promise<QuestionWithVote[]>
+  queryQuestions(query: QuestionQuery): Promise<QuestionWithVote[]>
+  getQuestion(id: QuestionID): Promise<QuestionWithVote>
+  updateQuestion(question: Question): Promise<Question>
+  insertQuestion(question: Question): Promise<Question>
+  deleteQuestion(questionID: QuestionID): Promise<boolean>
+  getQuestionRelatedAnswers(questionID: QuestionID): Promise<RelatedAnswersStatsResponse>
+}
 
 ////////////////////////////////////////////////////////////////////////
 //           TAG
@@ -75,24 +83,36 @@ export interface TagStats {
 }
 
 ////////////////////////////////////////////////////////////////////////
-//           C
+//           VOTE
 ////////////////////////////////////////////////////////////////////////
 
 export type Vote = {
-    questionID: string,
-    answerID: string,
-    userID?: string
+  questionID: QuestionID,
+  answerID: AnswerID,
+  userID?: UserID,
+  otherAnswer?: string
 }
 
 export type VoteStats = {
-    votes: number,
-    answers: Record<string, AnswerStats>
+  votes: number,
+  answers: Record<AnswerID, AnswerStats>
+}
+
+export type AnswerStats = {
+  votes: number,
+  percent: number
 }
 
 export type QuestionWithVote = {
-    question: Question,
-    voteStats?: VoteStats,
-    vote?: Vote,
+  question: Question,
+  voteStats?: VoteStats,
+  vote?: Vote,
+}
+
+interface VoteAPI {
+  getVote(questionID: QuestionID, userID: UserID): Promise<Vote>
+  postVote(vote: Vote): Promise<QuestionWithVote>
+  deleteVote(vote: Vote): Promise<boolean>
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -100,9 +120,12 @@ export type QuestionWithVote = {
 ////////////////////////////////////////////////////////////////////////
 
 export interface Comment {
-    id: CommentID,
-    questionID: QuestionID,
-    answerID?: AnswerID,
-    comment: string,
-    helpfulCount: number,
+  id: CommentID,
+  questionID: QuestionID,
+  answerID?: AnswerID,
+  comment: string,
+  helpfulCount: number,
+}
+
+interface CommentAPI {
 }

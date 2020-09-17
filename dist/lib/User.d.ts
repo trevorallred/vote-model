@@ -12,3 +12,5 @@ export interface Profile extends User {
     email: string;
     phone: string;
 }
+export interface UserQuery {
+}

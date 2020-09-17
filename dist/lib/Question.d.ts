@@ -1,13 +1,8 @@
+import { UserID } from "./User";
 export declare const QUESTION_API = "question";
 export declare type CommentID = string;
 export declare type QuestionID = string;
 export declare type AnswerID = string;
-export declare type QuestionFilter = {
-    showNew: boolean;
-    showAnswered: boolean;
-    showSkipped: boolean;
-    tag: TagStub;
-};
 export declare type Question = {
     id: QuestionID;
     long: string;
@@ -27,19 +22,23 @@ export declare enum ExtraAnswers {
     UNSURE = "unsure",
     SKIP = "skip"
 }
-export declare type AnswerStats = {
-    votes: number;
-    percent: number;
-};
-export declare type RelatedAnswersStatsResponse = {
-    answers: Record<string, RelatedAnswerStats[]>;
-};
-export declare type RelatedAnswerStats = {
+export interface RelatedAnswersStatsResponse {
+    answers: Record<AnswerID, RelatedAnswerStats[]>;
+}
+export interface RelatedAnswerStats {
     questionID: QuestionID;
     answerID: AnswerID;
     label: string;
     percent: number;
-};
+}
+export interface QuestionQuery {
+    showNew: boolean;
+    showAnswered: boolean;
+    showSkipped: boolean;
+    tag: TagStub;
+    limit?: number;
+    offset?: number;
+}
 export declare type TagStub = string;
 export interface Tag {
     stub: TagStub;
@@ -53,13 +52,18 @@ export interface TagStats {
     unansweredQuestions: number;
 }
 export declare type Vote = {
-    questionID: string;
-    answerID: string;
-    userID?: string;
+    questionID: QuestionID;
+    answerID: AnswerID;
+    userID?: UserID;
+    otherAnswer?: string;
 };
 export declare type VoteStats = {
     votes: number;
-    answers: Record<string, AnswerStats>;
+    answers: Record<AnswerID, AnswerStats>;
+};
+export declare type AnswerStats = {
+    votes: number;
+    percent: number;
 };
 export declare type QuestionWithVote = {
     question: Question;
