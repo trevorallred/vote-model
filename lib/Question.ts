@@ -49,6 +49,7 @@ export interface QuestionQuery {
   showAnswered: boolean, // Includes "Other"
   showSkipped: boolean,
   tag: TagStub,
+  electionID?: number,
   limit?: number,
   offset?: number,
 }

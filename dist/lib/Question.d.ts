@@ -36,6 +36,7 @@ export interface QuestionQuery {
     showAnswered: boolean;
     showSkipped: boolean;
     tag: TagStub;
+    electionID?: number;
     limit?: number;
     offset?: number;
 }
