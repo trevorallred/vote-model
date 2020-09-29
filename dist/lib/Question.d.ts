@@ -41,9 +41,10 @@ export interface QuestionQuery {
     offset?: number;
 }
 export interface QuestionAPI {
-    getQuestions(mode: string): Promise<QuestionWithVote[]>;
+    getQuestions(): Promise<Question[]>;
     queryQuestions(query: QuestionQuery): Promise<QuestionWithVote[]>;
-    getQuestion(id: QuestionID): Promise<QuestionWithVote>;
+    getQuestion(id: QuestionID): Promise<Question>;
+    getQuestionWithVote(id: QuestionID): Promise<QuestionWithVote>;
     updateQuestion(question: Question): Promise<Question>;
     insertQuestion(question: Question): Promise<Question>;
     deleteQuestion(questionID: QuestionID): Promise<boolean>;

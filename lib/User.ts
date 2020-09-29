@@ -9,23 +9,27 @@ export interface User {
 
 export interface Profile extends User {
   firstName?: string,
-  lastName?: string
+  lastName?: string,
   firstInviteDate?: number,
   email: string,
   phone: string,
 }
 
-export interface UserQuery {
-}
-
 export interface UserAPI {
-  queryUsers(query: UserQuery): Promise<User[]>
   getUser(userID: UserID): Promise<User>
   getProfile(): Promise<Profile>
   updateProfile(profile: Profile): Promise<Profile>
+}
+
+export interface UserQuery {
+}
+
+export interface FollowAPI {
+  queryUsers(query: UserQuery): Promise<User[]>
   getUsersFollowedByMe(): Promise<User[]>
   getUsersFollowingMe(): Promise<User[]>
-  followUserID(userID: UserID): Promise<boolean>
+  followUserID(userID: UserID): Promise<User>
+  unfollowUserID(userID: UserID): Promise<boolean>
   checkPhoneEmail(phoneEmail: string): Promise<User | null>
   invitePhoneEmail(phoneEmail: string): Promise<boolean>
 }
