@@ -1,9 +1,14 @@
 export declare type UserID = string;
 export interface User {
     id: UserID;
+    name?: string;
     displayName?: string;
     registrationDate?: number;
     lastLogin?: number;
+    about?: string;
+    followers?: number;
+    following?: number;
+    score?: number;
 }
 export interface Profile extends User {
     firstName?: string;

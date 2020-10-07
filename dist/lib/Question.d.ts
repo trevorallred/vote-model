@@ -93,3 +93,7 @@ export interface Comment {
     comment: string;
     helpfulCount: number;
 }
+export interface CommentAPI {
+    postComment(comment: Comment): Promise<boolean>;
+    deleteVote(vote: Vote): Promise<boolean>;
+}

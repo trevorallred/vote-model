@@ -129,7 +129,7 @@ export interface Comment {
   helpfulCount: number,
 }
 
-interface CommentAPI {
+export interface CommentAPI {
   postComment(comment: Comment): Promise<boolean>
   deleteVote(vote: Vote): Promise<boolean>
 }
