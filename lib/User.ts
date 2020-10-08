@@ -32,6 +32,8 @@ export interface UserQuery {
 export interface FollowAPI {
   // GET:/users?
   queryUsers(query: UserQuery): Promise<User[]>
+  // GET:/user
+  queryByEmailOrPhone(email?: string, phone?: string): Promise<User[]>
   // GET:/user/following
   getUsersFollowedByMe(): Promise<User[]>
   // GET:/user/followers
@@ -40,8 +42,8 @@ export interface FollowAPI {
   followUserID(userID: UserID): Promise<User>
   // DEL:/user/follow/{userID}
   unfollowUserID(userID: UserID): Promise<boolean>
-  // GET:/user
-  checkPhoneEmail(phoneEmail: string): Promise<User | null>
-  // POST:/user/invite/
-  invitePhoneEmail(phoneEmail: string): Promise<boolean>
+  // POST:/user/invite/email
+  inviteByEmail(email: string): Promise<boolean>
+  // POST:/user/invite/phone
+  inviteByPhone(phone: string): Promise<boolean>
 }

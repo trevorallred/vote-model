@@ -26,10 +26,11 @@ export interface UserQuery {
 }
 export interface FollowAPI {
     queryUsers(query: UserQuery): Promise<User[]>;
+    queryByEmailOrPhone(email?: string, phone?: string): Promise<User[]>;
     getUsersFollowedByMe(): Promise<User[]>;
     getUsersFollowingMe(): Promise<User[]>;
     followUserID(userID: UserID): Promise<User>;
     unfollowUserID(userID: UserID): Promise<boolean>;
-    checkPhoneEmail(phoneEmail: string): Promise<User | null>;
-    invitePhoneEmail(phoneEmail: string): Promise<boolean>;
+    inviteByEmail(email: string): Promise<boolean>;
+    inviteByPhone(phone: string): Promise<boolean>;
 }
