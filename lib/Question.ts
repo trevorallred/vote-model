@@ -2,8 +2,6 @@ import { UserID } from "./User";
 
 export const QUESTION_API = "question";
 
-export type CommentID = string;
-
 ////////////////////////////////////////////////////////////////////////
 //           QUESTION and ANSWER
 ////////////////////////////////////////////////////////////////////////
@@ -12,7 +10,7 @@ export type QuestionID = string;
 export type AnswerID = string;
 
 export type Question = {
-  id: QuestionID,
+  id: QuestionID, // Hashkey | uuid
   long: string,
   short?: string,
   tags?: TagStub[],
@@ -89,10 +87,12 @@ export interface TagStats {
 ////////////////////////////////////////////////////////////////////////
 
 export type Vote = {
-  questionID: QuestionID,
+  questionID: QuestionID, // Hashkey
+  userID: UserID,         // Rangekey
   answerID: AnswerID,
-  userID?: UserID,
-  otherAnswer?: string
+  otherAnswer?: string,
+  visible: boolean,
+  confidence: number,
 }
 
 export type VoteStats = {
@@ -122,14 +122,46 @@ export interface VoteAPI {
 ////////////////////////////////////////////////////////////////////////
 
 export interface Comment {
-  id: CommentID,
-  questionID: QuestionID,
-  answerID?: AnswerID,
+  questionID: QuestionID, // Hashkey
+  userID: UserID,         // Rangekey
   comment: string,
-  helpfulCount: number,
+}
+
+export interface CommentRating {
+  questionUserID: string, // Hashkey question|user
+  readerID: UserID,       // Rangekey
+  helpful: boolean,
 }
 
 export interface CommentAPI {
+  // POST:/comment
   postComment(comment: Comment): Promise<boolean>
-  deleteVote(vote: Vote): Promise<boolean>
+  // DELETE:/comment
+  deleteComment(comment: Comment): Promise<boolean>
+  // POST:/comment/rating
+  postCommentRating(comment: CommentRating): Promise<boolean>
+  // DELETE:/comment/rating
+  deleteCommentRating(comment: CommentRating): Promise<boolean>
+}
+
+////////////////////////////////////////////////////////////////////////
+//           REPORT
+////////////////////////////////////////////////////////////////////////
+
+export interface Report {
+  id: string,          // Hashkey | uuid
+  reporterID: UserID,
+  reason: string,
+  comment: string,
+  type: "Question" | "Answer" | "UserID" | "Comment",
+  questionID?: QuestionID,
+  answerID?: AnswerID,
+  userID?: UserID,
+}
+
+export interface ReportAPI {
+  // POST:/report
+  postReport(report: Report): Promise<boolean>
+  // DELETE:/report/{id}
+  deleteReport(report: Report): Promise<boolean>
 }

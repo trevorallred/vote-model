@@ -2,7 +2,6 @@ export declare type UserID = string;
 export interface User {
     id: UserID;
     name?: string;
-    displayName?: string;
     registrationDate?: number;
     lastLogin?: number;
     about?: string;
@@ -11,11 +10,10 @@ export interface User {
     score?: number;
 }
 export interface Profile extends User {
-    firstName?: string;
-    lastName?: string;
     firstInviteDate?: number;
     email: string;
-    phone: string;
+    phone?: string;
+    address?: string;
 }
 export interface UserAPI {
     getUser(userID: UserID): Promise<User>;

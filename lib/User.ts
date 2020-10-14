@@ -3,7 +3,6 @@ export type UserID = string;
 export interface User {
   id: UserID,
   name?: string,
-  displayName?: string,
   registrationDate?: number,
   lastLogin?: number,
   about?: string,
@@ -13,11 +12,10 @@ export interface User {
 }
 
 export interface Profile extends User {
-  firstName?: string,
-  lastName?: string,
   firstInviteDate?: number,
   email: string,
-  phone: string,
+  phone?: string,
+  address?: string,
 }
 
 export interface UserAPI {
@@ -32,7 +30,7 @@ export interface UserQuery {
 export interface FollowAPI {
   // GET:/users?
   queryUsers(query: UserQuery): Promise<User[]>
-  // GET:/user
+  // GET:/user/invite
   queryByEmailOrPhone(email?: string, phone?: string): Promise<User[]>
   // GET:/user/following
   getUsersFollowedByMe(): Promise<User[]>

@@ -1,6 +1,5 @@
 import { UserID } from "./User";
 export declare const QUESTION_API = "question";
-export declare type CommentID = string;
 export declare type QuestionID = string;
 export declare type AnswerID = string;
 export declare type Question = {
@@ -64,9 +63,11 @@ export interface TagStats {
 }
 export declare type Vote = {
     questionID: QuestionID;
+    userID: UserID;
     answerID: AnswerID;
-    userID?: UserID;
     otherAnswer?: string;
+    visible: boolean;
+    confidence: number;
 };
 export declare type VoteStats = {
     votes: number;
@@ -87,13 +88,32 @@ export interface VoteAPI {
     deleteVote(vote: Vote): Promise<boolean>;
 }
 export interface Comment {
-    id: CommentID;
     questionID: QuestionID;
-    answerID?: AnswerID;
+    userID: UserID;
     comment: string;
-    helpfulCount: number;
+}
+export interface CommentRating {
+    questionUserID: string;
+    readerID: UserID;
+    helpful: boolean;
 }
 export interface CommentAPI {
     postComment(comment: Comment): Promise<boolean>;
-    deleteVote(vote: Vote): Promise<boolean>;
+    deleteComment(comment: Comment): Promise<boolean>;
+    postCommentRating(comment: CommentRating): Promise<boolean>;
+    deleteCommentRating(comment: CommentRating): Promise<boolean>;
+}
+export interface Report {
+    id: string;
+    reporterID: UserID;
+    reason: string;
+    comment: string;
+    type: "Question" | "Answer" | "UserID" | "Comment";
+    questionID?: QuestionID;
+    answerID?: AnswerID;
+    userID?: UserID;
+}
+export interface ReportAPI {
+    postReport(report: Report): Promise<boolean>;
+    deleteReport(report: Report): Promise<boolean>;
 }
