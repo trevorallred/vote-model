@@ -102,7 +102,9 @@ export type VoteStats = {
 
 export type AnswerStats = {
   votes: number,
-  percent: number
+  percent: number,
+  comments: number,
+  followingVotes: number,
 }
 
 export type QuestionWithVote = {

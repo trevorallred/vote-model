@@ -76,6 +76,8 @@ export declare type VoteStats = {
 export declare type AnswerStats = {
     votes: number;
     percent: number;
+    comments: number;
+    followingVotes: number;
 };
 export declare type QuestionWithVote = {
     question: Question;
