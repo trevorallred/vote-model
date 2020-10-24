@@ -8,6 +8,7 @@ export declare type Question = {
     short?: string;
     answers: Answer[];
     tags?: TagStub[];
+    type?: QuestionType;
     dependsOnQuestionID?: QuestionID;
     validAnswers?: AnswerID[];
     expirationDate?: number;
@@ -18,9 +19,9 @@ export interface Answer {
     long: string;
     short?: string;
     party?: string;
-    candidateUrl?: string;
     resources?: Resource[];
 }
+export declare type QuestionType = "Election" | "Opinion" | "Proposition" | "Yes/No";
 export interface Resource {
     type: ResourceType;
     value: string;
