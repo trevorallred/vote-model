@@ -6,16 +6,26 @@ export declare type Question = {
     id: QuestionID;
     long: string;
     short?: string;
+    answers: Answer[];
     tags?: TagStub[];
     dependsOnQuestionID?: QuestionID;
-    answers: Answer[];
     validAnswers?: AnswerID[];
+    expirationDate?: number;
+    resources?: Resource[];
 };
 export interface Answer {
     id: AnswerID;
     long: string;
     short?: string;
+    party?: string;
+    candidateUrl?: string;
+    resources?: Resource[];
 }
+export interface Resource {
+    type: ResourceType;
+    value: string;
+}
+export declare type ResourceType = "phone" | "email" | "website" | "Facebook" | "Twitter" | "YouTube";
 export declare enum ExtraAnswers {
     OTHER = "other",
     UNSURE = "unsure",
@@ -43,6 +53,7 @@ export interface QuestionAPI {
     getQuestions(): Promise<Question[]>;
     queryQuestions(query: QuestionQuery): Promise<QuestionWithVote[]>;
     getQuestion(id: QuestionID): Promise<Question>;
+    getVoteStats(id: QuestionID): Promise<VoteStats>;
     getQuestionWithVote(id: QuestionID): Promise<QuestionWithVote>;
     updateQuestion(question: Question): Promise<Question>;
     insertQuestion(question: Question): Promise<Question>;
