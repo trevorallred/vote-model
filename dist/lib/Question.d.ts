@@ -53,7 +53,7 @@ export interface QuestionQuery {
 export interface QuestionAPI {
     getQuestions(): Promise<Question[]>;
     queryQuestions(query: QuestionQuery): Promise<QuestionWithVote[]>;
-    getQuestion(id: QuestionID): Promise<Question>;
+    getQuestion(id: QuestionID): Promise<QuestionWithStats>;
     getVoteStats(id: QuestionID): Promise<VoteStats>;
     getQuestionWithVote(id: QuestionID): Promise<QuestionWithVote>;
     updateQuestion(question: Question): Promise<Question>;
@@ -95,6 +95,10 @@ export declare type QuestionWithVote = {
     question: Question;
     voteStats?: VoteStats;
     vote?: Vote;
+};
+export declare type QuestionWithStats = {
+    question: Question;
+    voteStats?: VoteStats;
 };
 export interface VoteAPI {
     getVote(questionID: QuestionID, userID: UserID): Promise<Vote>;
