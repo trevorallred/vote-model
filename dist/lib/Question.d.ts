@@ -1,4 +1,5 @@
 import { UserID } from "./User";
+import { NewsID } from "./News";
 export declare const QUESTION_API = "question";
 export declare type QuestionID = string;
 export declare type AnswerID = string;
@@ -47,12 +48,24 @@ export interface QuestionQuery {
     showSkipped: boolean;
     tag: TagStub;
     electionID?: number;
+    newsID?: NewsID;
+    limit?: number;
+    offset?: number;
+}
+export interface QuestionSearchRequest {
+    query: string;
+    limit?: number;
+    offset?: number;
+}
+export interface QuestionSearchResponse {
+    results: Question[];
     limit?: number;
     offset?: number;
 }
 export interface QuestionAPI {
     getQuestions(): Promise<Question[]>;
     queryQuestions(query: QuestionQuery): Promise<QuestionWithVote[]>;
+    searchQuestions(search: QuestionSearchRequest): Promise<QuestionSearchResponse[]>;
     getQuestion(id: QuestionID): Promise<QuestionWithStats>;
     getVoteStats(id: QuestionID): Promise<VoteStats>;
     getQuestionWithVote(id: QuestionID): Promise<QuestionWithVote>;
@@ -91,15 +104,13 @@ export declare type AnswerStats = {
     comments: number;
     followingVotes: number;
 };
-export declare type QuestionWithVote = {
-    question: Question;
-    voteStats?: VoteStats;
-    vote?: Vote;
-};
 export declare type QuestionWithStats = {
     question: Question;
     voteStats?: VoteStats;
 };
+export interface QuestionWithVote extends QuestionWithStats {
+    vote?: Vote;
+}
 export interface VoteAPI {
     getVote(questionID: QuestionID, userID: UserID): Promise<Vote>;
     postVote(vote: Vote): Promise<QuestionWithVote>;
