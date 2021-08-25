@@ -14,6 +14,12 @@ export declare type Question = {
     validAnswers?: AnswerID[];
     expirationDate?: number;
     resources?: Resource[];
+    firstAsked?: number;
+    askedBy?: {
+        id: string;
+        name: string;
+    };
+    boost?: number;
 };
 export interface Answer {
     id: AnswerID;
@@ -92,7 +98,8 @@ export declare type Vote = {
     answerID: AnswerID;
     otherAnswer?: string;
     visible: boolean;
-    confidence: number;
+    confidence?: number;
+    lastAnsweredDate?: number;
 };
 export declare type VoteStats = {
     votes: number;

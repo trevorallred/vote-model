@@ -21,6 +21,12 @@ export type Question = {
   validAnswers?: AnswerID[];
   expirationDate?: number;
   resources?: Resource[];
+  firstAsked?: number;
+  askedBy?: {
+    id: string;
+    name: string;
+  };
+  boost?: number;
 };
 
 export interface Answer {
@@ -132,7 +138,8 @@ export type Vote = {
   answerID: AnswerID;
   otherAnswer?: string;
   visible: boolean;
-  confidence: number;
+  confidence?: number;
+  lastAnsweredDate?: number; // Last time this question was answered or skipped
 };
 
 export type VoteStats = {
