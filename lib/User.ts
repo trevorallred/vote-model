@@ -1,47 +1,46 @@
 export type UserID = string;
 
 export interface User {
-  id: UserID,
-  name?: string,
-  registrationDate?: number,
-  lastLogin?: number,
-  about?: string,
-  followers?: number,
-  following?: number,
-  score?: number,
+  id: UserID;
+  name?: string;
+  registrationDate?: number;
+  lastLogin?: number;
+  about?: string;
+  followers?: number;
+  following?: number;
+  score?: number;
 }
 
 export interface Profile extends User {
-  firstInviteDate?: number,
-  email: string,
-  phone?: string,
-  address?: string,
+  firstInviteDate?: number;
+  email: string;
+  phone?: string;
+  address?: string;
 }
 
 export interface UserAPI {
-  getUser(userID: UserID): Promise<User>
-  getProfile(): Promise<Profile>
-  updateProfile(profile: Profile): Promise<Profile>
+  getUser(userID: UserID): Promise<User>;
+  getProfile(): Promise<Profile>;
+  updateProfile(profile: Profile): Promise<Profile>;
 }
 
-export interface UserQuery {
-}
+export interface UserQuery {}
 
 export interface FollowAPI {
   // GET:/users?
-  queryUsers(query: UserQuery): Promise<User[]>
+  queryUsers(query: UserQuery): Promise<User[]>;
   // GET:/user/invite
-  queryByEmailOrPhone(email?: string, phone?: string): Promise<User[]>
+  queryByEmailOrPhone(email?: string, phone?: string): Promise<User[]>;
   // GET:/user/following
-  getUsersFollowedByMe(): Promise<User[]>
+  getUsersFollowedByMe(): Promise<User[]>;
   // GET:/user/followers
-  getUsersFollowingMe(): Promise<User[]>
+  getUsersFollowingMe(): Promise<User[]>;
   // PUT:/user/follow/{userID}
-  followUserID(userID: UserID): Promise<User>
+  followUserID(userID: UserID): Promise<User>;
   // DEL:/user/follow/{userID}
-  unfollowUserID(userID: UserID): Promise<boolean>
+  unfollowUserID(userID: UserID): Promise<boolean>;
   // POST:/user/invite/email
-  inviteByEmail(email: string): Promise<boolean>
+  inviteByEmail(email: string): Promise<boolean>;
   // POST:/user/invite/phone
-  inviteByPhone(phone: string): Promise<boolean>
+  inviteByPhone(phone: string): Promise<boolean>;
 }
