@@ -1,4 +1,4 @@
-import { UserID } from "./User";
+import { UserID, UserTiny } from "./User";
 import { NewsID } from "./News";
 
 export const QUESTION_API = "question";
@@ -15,18 +15,14 @@ export type Question = {
   long: string;
   short?: string;
   answers: Answer[];
-  tags?: TagStub[];
   type?: QuestionType;
-  dependsOnQuestionID?: QuestionID;
-  validAnswers?: AnswerID[];
   expirationDate?: number;
   resources?: Resource[];
   firstAsked?: number;
-  askedBy?: {
-    id: string;
-    name: string;
-  };
-  boost?: number;
+  askedBy?: UserTiny;
+  dependsOnQuestionID?: QuestionID;
+  validAnswers?: AnswerID[];
+  prerequisites?: QuestionPrerequisiteGroup;
 };
 
 export interface Answer {
@@ -37,7 +33,25 @@ export interface Answer {
   resources?: Resource[];
 }
 
-export type QuestionType = "Election" | "Opinion" | "Proposition" | "Yes/No";
+export type QuestionPrerequisiteGroup = {
+  /**
+   * MAX works similar to an OR clause
+   * MIN works similar to an AND clause
+   */
+  operator?: "MAX" | "MIN"
+  statements: (QuestionPrerequisiteProbability | QuestionPrerequisiteGroup)[]
+}
+
+export type QuestionPrerequisiteProbability = {
+  questionID: QuestionID,
+  answerID: AnswerID,
+  /**
+   * 0 to 1 percent of how likely
+   */
+  probability: number
+}
+
+export type QuestionType = "Election" | "Opinion" | "Proposition" | "Yes/No" | "Rather";
 
 export interface Resource {
   type: ResourceType;
@@ -58,22 +72,11 @@ export enum ExtraAnswers {
   SKIP = "skip",
 }
 
-export interface RelatedAnswersStatsResponse {
-  answers: Record<AnswerID, RelatedAnswerStats[]>;
-}
-
-export interface RelatedAnswerStats {
-  questionID: QuestionID;
-  answerID: AnswerID;
-  label: string;
-  percent: number;
-}
-
 export interface QuestionQuery {
   showNew: boolean;
   showAnswered: boolean; // Includes "Other"
-  showSkipped: boolean;
-  tag: TagStub;
+  showSkipped: boolean; // Includes "Unsure"
+  tag?: TagStub;
   electionID?: number;
   newsID?: NewsID;
   limit?: number;
@@ -104,24 +107,73 @@ export interface QuestionAPI {
   updateQuestion(question: Question): Promise<Question>;
   insertQuestion(question: Question): Promise<Question>;
   deleteQuestion(questionID: QuestionID): Promise<boolean>;
-  getQuestionRelatedAnswers(
-    questionID: QuestionID
-  ): Promise<RelatedAnswersStatsResponse>;
+  getQuestionAnalysis(id: QuestionID): Promise<QuestionAnalysis[]>;
+}
+
+////////////////////////////////////////////////////////////////////////
+//           QUESTION ANALYSIS
+////////////////////////////////////////////////////////////////////////
+
+export interface QuestionAnalysis {
+  questionID: QuestionID;
+  /**
+   * A list of questions this user should also consider answering.
+   */
+  followups: FollowupQuestion[];
+  /**
+   * users who answered this, also answered these questions
+   */
+  answers: Record<AnswerID, AnswerAnalysis>;
+  /**
+   * a list of users who selected these answers (excludes SKIP)
+   */
+  users: Record<AnswerID, UserTiny[]>;
+}
+
+export interface FollowupQuestion {
+  id: QuestionID;
+  long: string;
+  short?: string;
+  probability: number;
+  /**
+   * included if the user already voted
+   */
+  vote?: Vote;
+}
+
+export interface AnswerAnalysis {
+  question: {
+    id: QuestionID;
+    label: string;
+  };
+  answer: {
+    label: string;
+  };
+  probability: number;
 }
 
 ////////////////////////////////////////////////////////////////////////
 //           TAG
 ////////////////////////////////////////////////////////////////////////
 
+/**
+ * @deprecated
+ */
 export type TagStub = string;
 
-export interface Tag {
+/**
+ * @deprecated
+ */
+ export interface Tag {
   stub: TagStub;
   title: string;
   description: string;
 }
 
-export interface TagStats {
+/**
+ * @deprecated
+ */
+ export interface TagStats {
   stub: TagStub;
   totalQuestions: number;
   totalVotes: number;

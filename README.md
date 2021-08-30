@@ -14,7 +14,8 @@ yarn add votesha-model
 
 ```
 nvm use 12
-npm run build
+yarn install
+yarn run build
 ```
 
 ## Deployment

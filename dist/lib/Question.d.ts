@@ -1,4 +1,4 @@
-import { UserID } from "./User";
+import { UserID, UserTiny } from "./User";
 import { NewsID } from "./News";
 export declare const QUESTION_API = "question";
 export declare type QuestionID = string;
@@ -8,18 +8,14 @@ export declare type Question = {
     long: string;
     short?: string;
     answers: Answer[];
-    tags?: TagStub[];
     type?: QuestionType;
-    dependsOnQuestionID?: QuestionID;
-    validAnswers?: AnswerID[];
     expirationDate?: number;
     resources?: Resource[];
     firstAsked?: number;
-    askedBy?: {
-        id: string;
-        name: string;
-    };
-    boost?: number;
+    askedBy?: UserTiny;
+    dependsOnQuestionID?: QuestionID;
+    validAnswers?: AnswerID[];
+    prerequisites?: QuestionPrerequisiteGroup;
 };
 export interface Answer {
     id: AnswerID;
@@ -28,7 +24,23 @@ export interface Answer {
     party?: string;
     resources?: Resource[];
 }
-export declare type QuestionType = "Election" | "Opinion" | "Proposition" | "Yes/No";
+export declare type QuestionPrerequisiteGroup = {
+    /**
+     * MAX works similar to an OR clause
+     * MIN works similar to an AND clause
+     */
+    operator?: "MAX" | "MIN";
+    statements: (QuestionPrerequisiteProbability | QuestionPrerequisiteGroup)[];
+};
+export declare type QuestionPrerequisiteProbability = {
+    questionID: QuestionID;
+    answerID: AnswerID;
+    /**
+     * 0 to 1 percent of how likely
+     */
+    probability: number;
+};
+export declare type QuestionType = "Election" | "Opinion" | "Proposition" | "Yes/No" | "Rather";
 export interface Resource {
     type: ResourceType;
     value: string;
@@ -39,20 +51,11 @@ export declare enum ExtraAnswers {
     UNSURE = "unsure",
     SKIP = "skip"
 }
-export interface RelatedAnswersStatsResponse {
-    answers: Record<AnswerID, RelatedAnswerStats[]>;
-}
-export interface RelatedAnswerStats {
-    questionID: QuestionID;
-    answerID: AnswerID;
-    label: string;
-    percent: number;
-}
 export interface QuestionQuery {
     showNew: boolean;
     showAnswered: boolean;
     showSkipped: boolean;
-    tag: TagStub;
+    tag?: TagStub;
     electionID?: number;
     newsID?: NewsID;
     limit?: number;
@@ -78,14 +81,58 @@ export interface QuestionAPI {
     updateQuestion(question: Question): Promise<Question>;
     insertQuestion(question: Question): Promise<Question>;
     deleteQuestion(questionID: QuestionID): Promise<boolean>;
-    getQuestionRelatedAnswers(questionID: QuestionID): Promise<RelatedAnswersStatsResponse>;
+    getQuestionAnalysis(id: QuestionID): Promise<QuestionAnalysis[]>;
 }
+export interface QuestionAnalysis {
+    questionID: QuestionID;
+    /**
+     * A list of questions this user should also consider answering.
+     */
+    followups: FollowupQuestion[];
+    /**
+     * users who answered this, also answered these questions
+     */
+    answers: Record<AnswerID, AnswerAnalysis>;
+    /**
+     * a list of users who selected these answers (excludes SKIP)
+     */
+    users: Record<AnswerID, UserTiny[]>;
+}
+export interface FollowupQuestion {
+    id: QuestionID;
+    long: string;
+    short?: string;
+    probability: number;
+    /**
+     * included if the user already voted
+     */
+    vote?: Vote;
+}
+export interface AnswerAnalysis {
+    question: {
+        id: QuestionID;
+        label: string;
+    };
+    answer: {
+        label: string;
+    };
+    probability: number;
+}
+/**
+ * @deprecated
+ */
 export declare type TagStub = string;
+/**
+ * @deprecated
+ */
 export interface Tag {
     stub: TagStub;
     title: string;
     description: string;
 }
+/**
+ * @deprecated
+ */
 export interface TagStats {
     stub: TagStub;
     totalQuestions: number;
