@@ -81,7 +81,7 @@ export interface QuestionAPI {
     updateQuestion(question: Question): Promise<Question>;
     insertQuestion(question: Question): Promise<Question>;
     deleteQuestion(questionID: QuestionID): Promise<boolean>;
-    getQuestionAnalysis(id: QuestionID): Promise<QuestionAnalysis[]>;
+    getQuestionAnalysis(id: QuestionID): Promise<QuestionAnalysis>;
 }
 export interface QuestionAnalysis {
     questionID: QuestionID;
