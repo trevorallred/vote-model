@@ -6,7 +6,7 @@ export interface User extends UserTiny {
      */
     id: UserID;
     /**
-     * @deprecated use first and last names
+     * @deprecated use firstName and lastName
      */
     name?: string;
     /**
@@ -23,11 +23,15 @@ export interface User extends UserTiny {
     score?: number;
 }
 export interface UserTiny {
+    /**
+     * starts with @ like @johndoe
+     */
     handle: UserHandle;
-    first?: string;
-    last?: string;
+    firstName?: string;
+    lastName?: string;
 }
 export interface Profile extends User {
+    id: UserID;
     firstInviteDate?: number;
     email: string;
     phone?: string;
