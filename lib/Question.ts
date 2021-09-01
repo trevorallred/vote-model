@@ -1,5 +1,5 @@
-import { UserID, UserTiny } from "./User";
 import { NewsID } from "./News";
+import { UserID, UserTiny } from "./User";
 
 export const QUESTION_API = "question";
 
@@ -197,13 +197,17 @@ export type Vote = {
 export type VoteStats = {
   votes: number;
   answers: Record<AnswerID, AnswerStats>;
+  followingVotes?: number;
 };
 
 export type AnswerStats = {
   votes: number;
   percent: number;
-  comments: number;
-  followingVotes: number;
+  comments?: number;
+  /**
+   * @deprecated
+   */
+  followingVotes?: number;
 };
 
 export type QuestionWithStats = {

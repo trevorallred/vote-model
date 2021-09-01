@@ -1,5 +1,5 @@
-import { UserID, UserTiny } from "./User";
 import { NewsID } from "./News";
+import { UserID, UserTiny } from "./User";
 export declare const QUESTION_API = "question";
 export declare type QuestionID = string;
 export declare type AnswerID = string;
@@ -151,12 +151,16 @@ export declare type Vote = {
 export declare type VoteStats = {
     votes: number;
     answers: Record<AnswerID, AnswerStats>;
+    followingVotes?: number;
 };
 export declare type AnswerStats = {
     votes: number;
     percent: number;
-    comments: number;
-    followingVotes: number;
+    comments?: number;
+    /**
+     * @deprecated
+     */
+    followingVotes?: number;
 };
 export declare type QuestionWithStats = {
     question: Question;
