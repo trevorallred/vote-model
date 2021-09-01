@@ -1,6 +1,6 @@
 {
   "name": "votesha-model",
-  "version": "2.12.0",
+  "version": "2.13.0",
   "description": "Data types used to communicate between the Votesha frontend and backend",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
