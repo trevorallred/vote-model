@@ -123,7 +123,7 @@ export interface QuestionAnalysis {
   /**
    * users who answered this, also answered these questions
    */
-  answers: Record<AnswerID, AnswerAnalysis>;
+  answers: Record<AnswerID, AnswerAnalysis[]>;
   /**
    * a list of users who selected these answers (excludes SKIP)
    */
@@ -146,7 +146,7 @@ export interface AnswerAnalysis {
     id: QuestionID;
     label: string;
   };
-  answer: {
+  answer?: {
     label: string;
   };
   probability: number;
