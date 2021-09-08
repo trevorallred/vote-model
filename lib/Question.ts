@@ -19,6 +19,7 @@ export type Question = {
   expirationDate?: number;
   resources?: Resource[];
   firstAsked?: number;
+  boost?: number;
   askedBy?: UserTiny;
   dependsOnQuestionID?: QuestionID;
   validAnswers?: AnswerID[];
