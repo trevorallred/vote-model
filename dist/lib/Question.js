@@ -7,3 +7,8 @@ var ExtraAnswers;
     ExtraAnswers["UNSURE"] = "unsure";
     ExtraAnswers["SKIP"] = "skip";
 })(ExtraAnswers = exports.ExtraAnswers || (exports.ExtraAnswers = {}));
+exports.DefaultVoteStats = {
+    votes: 0,
+    score: 0,
+    answers: {},
+};

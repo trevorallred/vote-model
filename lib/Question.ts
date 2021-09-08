@@ -38,20 +38,25 @@ export type QuestionPrerequisiteGroup = {
    * MAX works similar to an OR clause
    * MIN works similar to an AND clause
    */
-  operator?: "MAX" | "MIN"
-  statements: (QuestionPrerequisiteProbability | QuestionPrerequisiteGroup)[]
-}
+  operator?: "MAX" | "MIN";
+  statements: (QuestionPrerequisiteProbability | QuestionPrerequisiteGroup)[];
+};
 
 export type QuestionPrerequisiteProbability = {
-  questionID: QuestionID,
-  answerID: AnswerID,
+  questionID: QuestionID;
+  answerID: AnswerID;
   /**
    * 0 to 1 percent of how likely
    */
-  probability: number
-}
+  probability: number;
+};
 
-export type QuestionType = "Election" | "Opinion" | "Proposition" | "Yes/No" | "Rather";
+export type QuestionType =
+  | "Election"
+  | "Opinion"
+  | "Proposition"
+  | "Yes/No"
+  | "Rather";
 
 export interface Resource {
   type: ResourceType;
@@ -164,7 +169,7 @@ export type TagStub = string;
 /**
  * @deprecated
  */
- export interface Tag {
+export interface Tag {
   stub: TagStub;
   title: string;
   description: string;
@@ -173,7 +178,7 @@ export type TagStub = string;
 /**
  * @deprecated
  */
- export interface TagStats {
+export interface TagStats {
   stub: TagStub;
   totalQuestions: number;
   totalVotes: number;
@@ -196,8 +201,15 @@ export type Vote = {
 
 export type VoteStats = {
   votes: number;
+  score: number;
   answers: Record<AnswerID, AnswerStats>;
   followingVotes?: number;
+};
+
+export const DefaultVoteStats: VoteStats = {
+  votes: 0,
+  score: 0,
+  answers: {},
 };
 
 export type AnswerStats = {

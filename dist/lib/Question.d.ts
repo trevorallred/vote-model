@@ -150,9 +150,11 @@ export declare type Vote = {
 };
 export declare type VoteStats = {
     votes: number;
+    score: number;
     answers: Record<AnswerID, AnswerStats>;
     followingVotes?: number;
 };
+export declare const DefaultVoteStats: VoteStats;
 export declare type AnswerStats = {
     votes: number;
     percent: number;
