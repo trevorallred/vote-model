@@ -16,7 +16,7 @@ export interface User extends UserTiny {
     /**
      * Last seen
      */
-    lastLogin?: number;
+    lastSeen?: number;
     about?: string;
     followers?: number;
     following?: number;
@@ -33,9 +33,12 @@ export interface UserTiny {
 export interface Profile extends User {
     id: UserID;
     firstInviteDate?: number;
-    email: string;
+    email?: string;
+    emailConfirmed?: boolean;
     phone?: string;
+    phoneConfirmed?: boolean;
     address?: string;
+    pushToken?: string;
 }
 export interface UserAPI {
     getUser(userID: UserID): Promise<User>;
