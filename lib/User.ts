@@ -3,10 +3,6 @@ export type UserHandle = string;
 
 export interface User extends UserTiny {
   /**
-   * @deprecated this has highly confidential data. I don't want this leaking out publicly.
-   */
-  id: UserID;
-  /**
    * @deprecated use firstName and lastName
    */
   name?: string;
@@ -30,7 +26,7 @@ export interface UserTiny {
    */
   handle: UserHandle;
   firstName?: string;
-  lastName?: string;  
+  lastName?: string;
 }
 
 export interface Profile extends User {
@@ -44,6 +40,18 @@ export interface Profile extends User {
   pushToken?: string;
 }
 
+export interface AuthToken {
+  id: UserID;
+  admin: boolean;
+  token: string;
+  expiration: number;
+}
+
+export type UserConfirmResponse = {
+  user: Profile,
+  auth: AuthToken,
+}
+
 export interface UserAPI {
   getUser(userID: UserID): Promise<User>;
   getUserByHandle(handle: UserHandle): Promise<User>;
@@ -52,6 +60,10 @@ export interface UserAPI {
    */
   getProfile(): Promise<Profile>;
   updateProfile(profile: Profile): Promise<Profile>;
+  addEmail(email: string): Promise<boolean>;
+  confirmEmail(email: string, code: number): Promise<UserConfirmResponse>;
+  addPhone(phone: string): Promise<boolean>;
+  confirmPhone(phone: string, code: number): Promise<UserConfirmResponse>;
 }
 
 export interface UserQuery {}
@@ -61,16 +73,22 @@ export interface FollowAPI {
   queryUsers(query: UserQuery): Promise<User[]>;
   // GET:/user/invite
   queryByEmailOrPhone(email?: string, phone?: string): Promise<User[]>;
+  // GET:/user/invite/email
+  queryByEmail(email: string): Promise<User[]>;
+  // GET:/user/invite/phone
+  queryByPhone(email?: string, phone?: string): Promise<User[]>;
   // GET:/user/following
-  getUsersFollowedByMe(): Promise<UserTiny[]>;
+  getUsersFollowedByMe(): Promise<User[]>;
   // GET:/user/followers
-  getUsersFollowingMe(): Promise<UserTiny[]>;
+  getUsersFollowingMe(): Promise<User[]>;
   // PUT:/user/follow/{userID}
   followUserID(userID: UserID): Promise<User>;
   // DEL:/user/follow/{userID}
   unfollowUserID(userID: UserID): Promise<boolean>;
+  // PUT:/user/follow/{userID}
+  blockUserID(userID: UserID): Promise<boolean>;
   // POST:/user/invite/email
-  inviteByEmail(email: string): Promise<boolean>;
+  inviteByEmail(email: string, body: string): Promise<boolean>;
   // POST:/user/invite/phone
-  inviteByPhone(phone: string): Promise<boolean>;
+  inviteByPhone(phone: string, body: string): Promise<boolean>;
 }
