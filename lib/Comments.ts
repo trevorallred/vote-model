@@ -1,6 +1,6 @@
 import { AuditDates } from "./General";
 import { AnswerID, QuestionID } from "./Question";
-import { User, UserID } from "./User";
+import { User } from "./User";
 
 export type CommentID = string;
 
@@ -32,19 +32,35 @@ export enum CommentVisibility {
   FOLLOWERS,
 }
 
-export interface CommentRating {
-  questionUserID: string; // Hashkey question|user
-  readerID: UserID; // Rangekey
-  helpful: boolean;
-}
+export type GetCommentsResponse = {
+  comments: Comment[];
+  myComment?: Comment;
+};
 
 export interface CommentAPI {
-  // POST:/comment
-  postComment(comment: CommentPost): Promise<boolean>;
-  // DELETE:/comment
-  deleteComment(comment: Comment): Promise<boolean>;
-  // POST:/comment/rating
-  postCommentRating(comment: CommentRating): Promise<boolean>;
-  // DELETE:/comment/rating
-  deleteCommentRating(comment: CommentRating): Promise<boolean>;
+  /**
+   * GET:/question/{questionID}/comments
+   */
+  getComments(questionID: QuestionID): Promise<GetCommentsResponse>;
+  /**
+   * GET:/question/{questionID}/comment
+   */
+  getComment(questionID: QuestionID): Promise<Comment[]>;
+  /**
+   * PUT: /question/{questionID}/comment
+   * POST:/question/{questionID}/comment/{commentID}
+   */
+  postComment(comment: CommentPost): Promise<Comment>;
+  /**
+   * DELETE:/question/{questionID}/comment/{commentID}
+   */
+  deleteComment(questionID: QuestionID, commentID: CommentID): Promise<boolean>;
+  /**
+   * PUT:/question/{questionID}/comment/{commentID}/like
+   */
+  likeComment(questionID: QuestionID, commentID: CommentID): Promise<boolean>;
+  /**
+   * DELETE:/question/{questionID}/comment/{commentID}/like
+   */
+  unlikeComment(questionID: QuestionID, commentID: CommentID): Promise<boolean>;
 }

@@ -1,6 +1,6 @@
 import { AuditDates } from "./General";
 import { AnswerID, QuestionID } from "./Question";
-import { User, UserID } from "./User";
+import { User } from "./User";
 export declare type CommentID = string;
 export interface Comment extends AuditDates {
     questionID: QuestionID;
@@ -27,14 +27,34 @@ export declare enum CommentVisibility {
     GLOBAL = 0,
     FOLLOWERS = 1
 }
-export interface CommentRating {
-    questionUserID: string;
-    readerID: UserID;
-    helpful: boolean;
-}
+export declare type GetCommentsResponse = {
+    comments: Comment[];
+    myComment?: Comment;
+};
 export interface CommentAPI {
-    postComment(comment: CommentPost): Promise<boolean>;
-    deleteComment(comment: Comment): Promise<boolean>;
-    postCommentRating(comment: CommentRating): Promise<boolean>;
-    deleteCommentRating(comment: CommentRating): Promise<boolean>;
+    /**
+     * GET:/question/{questionID}/comments
+     */
+    getComments(questionID: QuestionID): Promise<GetCommentsResponse>;
+    /**
+     * GET:/question/{questionID}/comment
+     */
+    getComment(questionID: QuestionID): Promise<Comment[]>;
+    /**
+     * PUT: /question/{questionID}/comment
+     * POST:/question/{questionID}/comment/{commentID}
+     */
+    postComment(comment: CommentPost): Promise<Comment>;
+    /**
+     * DELETE:/question/{questionID}/comment/{commentID}
+     */
+    deleteComment(questionID: QuestionID, commentID: CommentID): Promise<boolean>;
+    /**
+     * PUT:/question/{questionID}/comment/{commentID}/like
+     */
+    likeComment(questionID: QuestionID, commentID: CommentID): Promise<boolean>;
+    /**
+     * DELETE:/question/{questionID}/comment/{commentID}/like
+     */
+    unlikeComment(questionID: QuestionID, commentID: CommentID): Promise<boolean>;
 }
