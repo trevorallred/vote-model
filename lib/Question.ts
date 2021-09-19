@@ -162,23 +162,14 @@ export interface AnswerAnalysis {
 //           TAG
 ////////////////////////////////////////////////////////////////////////
 
-/**
- * @deprecated
- */
 export type TagStub = string;
 
-/**
- * @deprecated
- */
 export interface Tag {
   stub: TagStub;
   title: string;
   description: string;
 }
 
-/**
- * @deprecated
- */
 export interface TagStats {
   stub: TagStub;
   totalQuestions: number;
@@ -236,33 +227,6 @@ export interface VoteAPI {
   getVote(questionID: QuestionID, userID: UserID): Promise<Vote>;
   postVote(vote: Vote): Promise<QuestionWithVote>;
   deleteVote(vote: Vote): Promise<boolean>;
-}
-
-////////////////////////////////////////////////////////////////////////
-//           COMMENT
-////////////////////////////////////////////////////////////////////////
-
-export interface Comment {
-  questionID: QuestionID; // Hashkey
-  userID: UserID; // Rangekey
-  comment: string;
-}
-
-export interface CommentRating {
-  questionUserID: string; // Hashkey question|user
-  readerID: UserID; // Rangekey
-  helpful: boolean;
-}
-
-export interface CommentAPI {
-  // POST:/comment
-  postComment(comment: Comment): Promise<boolean>;
-  // DELETE:/comment
-  deleteComment(comment: Comment): Promise<boolean>;
-  // POST:/comment/rating
-  postCommentRating(comment: CommentRating): Promise<boolean>;
-  // DELETE:/comment/rating
-  deleteCommentRating(comment: CommentRating): Promise<boolean>;
 }
 
 ////////////////////////////////////////////////////////////////////////
