@@ -49,6 +49,7 @@ export declare type UserConfirmResponse = {
 export interface UserAPI {
     getUser(userID: UserID): Promise<User>;
     getUserByHandle(handle: UserHandle): Promise<User>;
+    findHandles(): Promise<UserHandle[]>;
     /**
      * Get the current users's profile
      */
