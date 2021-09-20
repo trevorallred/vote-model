@@ -21,16 +21,16 @@ export interface Comment extends AuditDates {
 
 export interface CommentPost {
   questionID: QuestionID; // Hashkey
-  commentID: CommentID;
+  commentID: CommentID;   // RangeKey
   replyTo?: CommentID;
-  visiblility?: CommentVisibility; // default FOLLOWERS
+  visiblility?: CommentVisibility;
   body: string;
 }
 
-export enum CommentVisibility {
-  GLOBAL,
-  FOLLOWERS,
-}
+type CommentVisibility = GLOBAL | FOLLOWERS;
+
+type GLOBAL = "GLOBAL";
+type FOLLOWERS = "FOLLOWERS";
 
 export type GetCommentsResponse = {
   comments: Comment[];
@@ -41,11 +41,10 @@ export interface CommentAPI {
   /**
    * GET:/question/{questionID}/comments
    */
-  getComments(questionID: QuestionID): Promise<GetCommentsResponse>;
-  /**
-   * GET:/question/{questionID}/comment
-   */
-  getComment(questionID: QuestionID): Promise<Comment[]>;
+  getComments(
+    questionID: QuestionID,
+    replyTo?: CommentID
+  ): Promise<GetCommentsResponse>;
   /**
    * PUT: /question/{questionID}/comment
    * POST:/question/{questionID}/comment/{commentID}

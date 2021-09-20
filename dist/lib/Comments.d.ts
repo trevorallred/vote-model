@@ -23,10 +23,9 @@ export interface CommentPost {
     visiblility?: CommentVisibility;
     body: string;
 }
-export declare enum CommentVisibility {
-    GLOBAL = 0,
-    FOLLOWERS = 1
-}
+declare type CommentVisibility = GLOBAL | FOLLOWERS;
+declare type GLOBAL = "GLOBAL";
+declare type FOLLOWERS = "FOLLOWERS";
 export declare type GetCommentsResponse = {
     comments: Comment[];
     myComment?: Comment;
@@ -35,11 +34,7 @@ export interface CommentAPI {
     /**
      * GET:/question/{questionID}/comments
      */
-    getComments(questionID: QuestionID): Promise<GetCommentsResponse>;
-    /**
-     * GET:/question/{questionID}/comment
-     */
-    getComment(questionID: QuestionID): Promise<Comment[]>;
+    getComments(questionID: QuestionID, replyTo?: CommentID): Promise<GetCommentsResponse>;
     /**
      * PUT: /question/{questionID}/comment
      * POST:/question/{questionID}/comment/{commentID}
@@ -58,3 +53,4 @@ export interface CommentAPI {
      */
     unlikeComment(questionID: QuestionID, commentID: CommentID): Promise<boolean>;
 }
+export {};
