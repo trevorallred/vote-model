@@ -27,10 +27,10 @@ export interface CommentPost {
   body: string;
 }
 
-type CommentVisibility = GLOBAL | FOLLOWERS;
+export type CommentVisibility = GLOBAL | FOLLOWERS;
 
-type GLOBAL = "GLOBAL";
-type FOLLOWERS = "FOLLOWERS";
+export type GLOBAL = "GLOBAL";
+export type FOLLOWERS = "FOLLOWERS";
 
 export type GetCommentsResponse = {
   comments: Comment[];

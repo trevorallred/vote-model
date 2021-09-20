@@ -23,9 +23,9 @@ export interface CommentPost {
     visiblility?: CommentVisibility;
     body: string;
 }
-declare type CommentVisibility = GLOBAL | FOLLOWERS;
-declare type GLOBAL = "GLOBAL";
-declare type FOLLOWERS = "FOLLOWERS";
+export declare type CommentVisibility = GLOBAL | FOLLOWERS;
+export declare type GLOBAL = "GLOBAL";
+export declare type FOLLOWERS = "FOLLOWERS";
 export declare type GetCommentsResponse = {
     comments: Comment[];
     myComment?: Comment;
@@ -53,4 +53,3 @@ export interface CommentAPI {
      */
     unlikeComment(questionID: QuestionID, commentID: CommentID): Promise<boolean>;
 }
-export {};
