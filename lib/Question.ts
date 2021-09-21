@@ -1,4 +1,4 @@
-import { AuditColumns } from "..";
+import { AuditColumns } from "./General";
 import { NewsID } from "./News";
 import { UserID, UserTiny } from "./User";
 
