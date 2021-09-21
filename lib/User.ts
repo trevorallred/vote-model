@@ -4,6 +4,7 @@ export type UserHandle = string;
 export interface User extends UserTiny {
   /**
    * @deprecated use firstName and lastName
+   * Remove once name doesn't exist in DDB anymore
    */
   name?: string;
   /**
@@ -30,7 +31,7 @@ export interface UserTiny {
 }
 
 export interface Profile extends User {
-  id: UserID;
+  readonly id: UserID;
   firstInviteDate?: number;
   email?: string;
   emailConfirmed?: boolean;
@@ -40,6 +41,16 @@ export interface Profile extends User {
   pushToken?: string;
 }
 
+export type ProfileEditableFields =
+  | "firstName"
+  | "lastName"
+  | "email"
+  | "about"
+  | "handle"
+  | "address"
+  | "pushToken"
+  | "lastSeen";
+
 export interface AuthToken {
   id: UserID;
   admin: boolean;
@@ -47,10 +58,10 @@ export interface AuthToken {
   expiration: number;
 }
 
-export type UserConfirmResponse = {
-  user: Profile,
-  auth: AuthToken,
-}
+// export type UserConfirmResponse = {
+//   user: Profile;
+//   auth: AuthToken;
+// };
 
 export interface UserAPI {
   getUser(userID: UserID): Promise<User>;
@@ -60,11 +71,13 @@ export interface UserAPI {
    * Get the current users's profile
    */
   getProfile(): Promise<Profile>;
-  updateProfile(profile: Profile): Promise<Profile>;
-  addEmail(email: string): Promise<boolean>;
-  confirmEmail(email: string, code: number): Promise<UserConfirmResponse>;
-  addPhone(phone: string): Promise<boolean>;
-  confirmPhone(phone: string, code: number): Promise<UserConfirmResponse>;
+  updateProfile(
+    profile: Partial<Pick<Profile, ProfileEditableFields>>
+  ): Promise<Profile>;
+  // addEmail(email: string): Promise<boolean>;
+  // confirmEmail(email: string, code: number): Promise<UserConfirmResponse>;
+  // addPhone(phone: string): Promise<boolean>;
+  // confirmPhone(phone: string, code: number): Promise<UserConfirmResponse>;
 }
 
 export interface UserQuery {}
