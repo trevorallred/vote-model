@@ -1,14 +1,16 @@
+import { AuditColumns } from "..";
 import { NewsID } from "./News";
 import { UserID, UserTiny } from "./User";
 export declare const QUESTION_API = "question";
 export declare type QuestionID = string;
 export declare type AnswerID = string;
-export declare type Question = {
+export interface Question extends AuditColumns {
     id: QuestionID;
     long: string;
     short?: string;
     answers: Answer[];
     type?: QuestionType;
+    hideUntil?: number;
     expirationDate?: number;
     resources?: Resource[];
     firstAsked?: number;
@@ -17,7 +19,11 @@ export declare type Question = {
     dependsOnQuestionID?: QuestionID;
     validAnswers?: AnswerID[];
     prerequisites?: QuestionPrerequisiteGroup;
-};
+    preface?: string;
+    addendum?: string;
+    showOther?: boolean;
+    showUnsure?: boolean;
+}
 export interface Answer {
     id: AnswerID;
     long: string;

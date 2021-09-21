@@ -2,8 +2,8 @@
   "name": "votesha-model",
   "version": "2.23.0",
   "description": "Data types used to communicate between the Votesha frontend and backend",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index",
+  "types": "index",
   "scripts": {
     "build": "tsc",
     "test": "echo no tests"

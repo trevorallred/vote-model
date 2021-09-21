@@ -1,3 +1,4 @@
+import { AuditColumns } from "..";
 import { NewsID } from "./News";
 import { UserID, UserTiny } from "./User";
 
@@ -10,12 +11,13 @@ export const QUESTION_API = "question";
 export type QuestionID = string;
 export type AnswerID = string;
 
-export type Question = {
+export interface Question extends AuditColumns {
   id: QuestionID; // Hashkey | uuid
   long: string;
   short?: string;
   answers: Answer[];
   type?: QuestionType;
+  hideUntil?: number;
   expirationDate?: number;
   resources?: Resource[];
   firstAsked?: number;
@@ -24,7 +26,11 @@ export type Question = {
   dependsOnQuestionID?: QuestionID;
   validAnswers?: AnswerID[];
   prerequisites?: QuestionPrerequisiteGroup;
-};
+  preface?: string;
+  addendum?: string;
+  showOther?: boolean;
+  showUnsure?: boolean;
+}
 
 export interface Answer {
   id: AnswerID;
