@@ -58,25 +58,14 @@ export type QuestionPrerequisiteProbability = {
   probability: number;
 };
 
-export type QuestionType =
-  | "Election"
-  | "Opinion"
-  | "Proposition"
-  | "Yes/No"
-  | "Rather";
+export type QuestionType = "Election" | "Opinion" | "Proposition" | "Yes/No" | "Rather";
 
 export interface Resource {
   type: ResourceType;
   value: string;
 }
 
-export type ResourceType =
-  | "phone"
-  | "email"
-  | "website"
-  | "Facebook"
-  | "Twitter"
-  | "YouTube";
+export type ResourceType = "phone" | "email" | "website" | "Facebook" | "Twitter" | "YouTube";
 
 export enum ExtraAnswers {
   OTHER = "other",
@@ -110,9 +99,7 @@ export interface QuestionSearchResponse {
 export interface QuestionAPI {
   getQuestions(): Promise<Question[]>;
   queryQuestions(query: QuestionQuery): Promise<QuestionWithVote[]>;
-  searchQuestions(
-    search: QuestionSearchRequest
-  ): Promise<QuestionSearchResponse[]>;
+  searchQuestions(search: QuestionSearchRequest): Promise<QuestionSearchResponse[]>;
   getQuestion(id: QuestionID): Promise<QuestionWithStats>;
   getVoteStats(id: QuestionID): Promise<VoteStats>;
   getQuestionWithVote(id: QuestionID): Promise<QuestionWithVote>;

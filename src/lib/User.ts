@@ -71,9 +71,7 @@ export interface UserAPI {
    * Get the current users's profile
    */
   getProfile(): Promise<Profile>;
-  updateProfile(
-    profile: Partial<Pick<Profile, ProfileEditableFields>>
-  ): Promise<Profile>;
+  updateProfile(profile: Partial<Pick<Profile, ProfileEditableFields>>): Promise<Profile>;
   // addEmail(email: string): Promise<boolean>;
   // confirmEmail(email: string, code: number): Promise<UserConfirmResponse>;
   // addPhone(phone: string): Promise<boolean>;

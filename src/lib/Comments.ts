@@ -21,7 +21,7 @@ export interface Comment extends AuditDates {
 
 export interface CommentPost {
   questionID: QuestionID; // Hashkey
-  commentID: CommentID;   // RangeKey
+  commentID: CommentID; // RangeKey
   replyTo?: CommentID;
   visiblility?: CommentVisibility;
   body: string;
@@ -41,10 +41,7 @@ export interface CommentAPI {
   /**
    * GET:/question/{questionID}/comments
    */
-  getComments(
-    questionID: QuestionID,
-    replyTo?: CommentID
-  ): Promise<GetCommentsResponse>;
+  getComments(questionID: QuestionID, replyTo?: CommentID): Promise<GetCommentsResponse>;
   /**
    * PUT: /question/{questionID}/comment
    * POST:/question/{questionID}/comment/{commentID}
