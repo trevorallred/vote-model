@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -Rf dist && tsc",
+    "clean": "rm -Rf dist",
+    "build": "tsc",
     "test": "echo no tests",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
