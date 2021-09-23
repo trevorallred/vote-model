@@ -28,6 +28,7 @@ export interface UserTiny {
   handle: UserHandle;
   firstName?: string;
   lastName?: string;
+  followingState?: FollowingState;
 }
 
 export interface Profile extends User {
@@ -50,6 +51,20 @@ export type ProfileEditableFields =
   | "address"
   | "pushToken"
   | "lastSeen";
+
+export type FollowingState = "FOLLOW" | "NONE" | "BLOCK" | "HIDE" | "FRIEND";
+
+export function isFollowing(state: FollowingState): boolean {
+  if (state === "FOLLOW") return true;
+  if (state === "FRIEND") return true;
+  return false;
+}
+
+export function isVisible(state: FollowingState): boolean {
+  if (state === "BLOCK") return false;
+  if (state === "HIDE") return false;
+  return true;
+}
 
 export interface AuthToken {
   id: UserID;
