@@ -80,11 +80,11 @@ export interface UserAPI {
   // confirmPhone(phone: string, code: number): Promise<UserConfirmResponse>;
 }
 
-export interface UserQuery {}
+// export interface UserQuery {}
 
 export interface FollowAPI {
   // GET:/users?
-  queryUsers(query: UserQuery): Promise<User[]>;
+  // queryUsers(query: UserQuery): Promise<User[]>;
   // GET:/user/invite
   queryByEmailOrPhone(email?: string, phone?: string): Promise<User[]>;
   // GET:/user/invite/email

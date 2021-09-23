@@ -2,18 +2,33 @@
   "name": "votesha-model",
   "version": "2.26.0",
   "description": "Data types used to communicate between the Votesha frontend and backend",
-  "main": "index",
-  "types": "index",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "test": "echo no tests"
+    "build": "rm -Rf dist && tsc",
+    "test": "echo no tests",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm run lint",
+    "preversion" : "npm run lint",
+    "version" : "npm run format && git add -A src",
+    "postversion" : "git push && git push --tags"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "directory": "git+https://github.com/trevorallred/vote-model.git"
+  },
+  "keywords": ["votesha"],
+  "author": "Trevor Allred",
   "bugs": {
     "url": "https://github.com/trevorallred/vote-model/issues"
   },
   "homepage": "https://github.com/trevorallred/vote-model#readme",
   "devDependencies": {
+    "prettier": "^2.4.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.7.2"
   }
 }
