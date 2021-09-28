@@ -52,7 +52,7 @@ export type ProfileEditableFields =
   | "pushToken"
   | "lastSeen";
 
-export type FollowingState = "FOLLOW" | "NONE" | "BLOCK" | "HIDE" | "FRIEND";
+export type FollowingState = "FOLLOW" | "NONE" | "BLOCK" | "HIDE" | "FRIEND" | "SELF";
 
 export function isFollowing(state: FollowingState): boolean {
   if (state === "FOLLOW") return true;
