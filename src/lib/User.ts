@@ -66,20 +66,7 @@ export function isVisible(state: FollowingState): boolean {
   return true;
 }
 
-export interface AuthToken {
-  id: UserID;
-  admin: boolean;
-  token: string;
-  expiration: number;
-}
-
-// export type UserConfirmResponse = {
-//   user: Profile;
-//   auth: AuthToken;
-// };
-
 export interface UserAPI {
-  getUser(userID: UserID): Promise<User>;
   getUserByHandle(handle: UserHandle): Promise<User>;
   findHandles(): Promise<UserHandle[]>;
   /**
@@ -108,12 +95,10 @@ export interface FollowAPI {
   getUsersFollowedByMe(): Promise<User[]>;
   // GET:/user/followers
   getUsersFollowingMe(): Promise<User[]>;
-  // PUT:/user/follow/{userID}
-  followUserID(userID: UserID): Promise<User>;
-  // DEL:/user/follow/{userID}
-  unfollowUserID(userID: UserID): Promise<boolean>;
-  // PUT:/user/follow/{userID}
-  blockUserID(userID: UserID): Promise<boolean>;
+  // PUT:/user/follow/{user}
+  followUser(user: UserHandle, state?: FollowingState): Promise<User>;
+  // DEL:/user/follow/{user}
+  unfollowUser(user: UserHandle): Promise<boolean>;
   // POST:/user/invite/email
   inviteByEmail(email: string, body: string): Promise<boolean>;
   // POST:/user/invite/phone

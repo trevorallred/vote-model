@@ -1,6 +1,7 @@
+import { UserHandle } from "..";
 import { AuditColumns } from "./General";
 import { NewsID } from "./News";
-import { UserID, UserTiny } from "./User";
+import { UserTiny } from "./User";
 
 export const QUESTION_API = "question";
 
@@ -175,19 +176,30 @@ export interface TagStats {
 ////////////////////////////////////////////////////////////////////////
 
 export type Vote = {
-  questionID: QuestionID; // Hashkey
-  userID: UserID; // Rangekey
+  questionID: QuestionID;
   answerID: AnswerID;
   otherAnswer?: string;
+  bookmark: boolean;
   visible: boolean;
-  confidence?: number;
-  lastAnsweredDate?: number; // Last time this question was answered or skipped
+  /**
+   * Last time this question was answered or skipped
+   */
+  lastAnsweredDate?: number;
+  /**
+   * timestamp the user last viewed this question
+   */
+  lastViewedDate?: number;
+  /**
+   * timestamp the user last viewed this question's comments
+   */
+   lastViewedCommentsDate?: number;
 };
 
 export type VoteStats = {
   votes: number;
   score: number;
   answers: Record<AnswerID, AnswerStats>;
+  comments?: number;
   followingVotes?: number;
 };
 
@@ -200,11 +212,6 @@ export const DefaultVoteStats: VoteStats = {
 export type AnswerStats = {
   votes: number;
   percent: number;
-  comments?: number;
-  /**
-   * @deprecated
-   */
-  followingVotes?: number;
 };
 
 export type QuestionWithStats = {
@@ -217,7 +224,6 @@ export interface QuestionWithVote extends QuestionWithStats {
 }
 
 export interface VoteAPI {
-  getVote(questionID: QuestionID, userID: UserID): Promise<Vote>;
   postVote(vote: Vote): Promise<QuestionWithVote>;
   deleteVote(vote: Vote): Promise<boolean>;
 }
@@ -228,13 +234,13 @@ export interface VoteAPI {
 
 export interface Report {
   id: string; // Hashkey | uuid
-  reporterID: UserID;
+  reporterID: UserHandle;
   reason: string;
   comment: string;
-  type: "Question" | "Answer" | "UserID" | "Comment";
+  type: "Question" | "Answer" | "UserHandle" | "Comment";
   questionID?: QuestionID;
   answerID?: AnswerID;
-  userID?: UserID;
+  user?: UserHandle;
 }
 
 export interface ReportAPI {
