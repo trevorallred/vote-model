@@ -200,7 +200,7 @@ export type VoteStats = {
   score: number;
   answers: Record<AnswerID, AnswerStats>;
   comments?: number;
-  followingVotes?: number;
+  bookmarks?: number;
 };
 
 export const DefaultVoteStats: VoteStats = {
