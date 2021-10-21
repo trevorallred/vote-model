@@ -192,7 +192,7 @@ export type Vote = {
   /**
    * timestamp the user last viewed this question's comments
    */
-   lastViewedCommentsDate?: number;
+  lastViewedCommentsDate?: number;
 };
 
 export type VoteStats = {
