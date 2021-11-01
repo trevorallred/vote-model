@@ -38,7 +38,6 @@ export interface Question extends AuditColumns {
   showUnsure?: boolean;
   defaultVisible?: boolean;
   tags?: Tag[];
-
 }
 
 export interface Answer {
