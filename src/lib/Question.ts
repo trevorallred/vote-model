@@ -22,6 +22,11 @@ export interface Question extends AuditColumns {
   expirationDate?: number;
   resources?: Resource[];
   firstAsked?: number;
+  engagementScore?: number;
+  engagementScoreOverride?: number;
+  /**
+   * @deprecated use engagementScoreOverride
+   */
   boost?: number;
   askedBy?: UserTiny;
   dependsOnQuestionID?: QuestionID;
@@ -31,6 +36,9 @@ export interface Question extends AuditColumns {
   addendum?: string;
   showOther?: boolean;
   showUnsure?: boolean;
+  defaultVisible?: boolean;
+  tags?: Tag[];
+
 }
 
 export interface Answer {
