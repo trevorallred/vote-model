@@ -40,6 +40,7 @@ export interface Profile extends User {
   phoneConfirmed?: boolean;
   address?: string;
   pushToken?: string;
+  pushNotifications?: boolean;
 }
 
 export type ProfileEditableFields =
@@ -50,6 +51,7 @@ export type ProfileEditableFields =
   | "handle"
   | "address"
   | "pushToken"
+  | "pushNotifications"
   | "lastSeen";
 
 export type FollowingState = "FOLLOW" | "NONE" | "BLOCK" | "HIDE" | "FRIEND" | "SELF";
@@ -73,6 +75,10 @@ export interface UserAPI {
    * Get the current users's profile
    */
   getProfile(): Promise<Profile>;
+  /**
+   * delete all the current user's data
+   */
+  deleteProfile(): Promise<boolean>;
   updateProfile(profile: Partial<Pick<Profile, ProfileEditableFields>>): Promise<Profile>;
   // addEmail(email: string): Promise<boolean>;
   // confirmEmail(email: string, code: number): Promise<UserConfirmResponse>;
