@@ -12,9 +12,12 @@ export const QUESTION_API = "question";
 export type QuestionID = string;
 export type AnswerID = string;
 
+export type QuestionStatus = "DRAFT" | "PENDING" | "VISIBLE";
+
 export interface Question extends AuditColumns {
   id: QuestionID; // Hashkey | uuid
   long: string;
+  status: QuestionStatus;
   short?: string;
   answers: Answer[];
   type?: QuestionType;
