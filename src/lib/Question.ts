@@ -91,6 +91,7 @@ export interface QuestionQuery {
   tag?: TagStub;
   electionID?: number;
   newsID?: NewsID;
+  q?: string;
   limit?: number;
   offset?: number;
 }
@@ -169,9 +170,13 @@ export interface AnswerAnalysis {
 export type TagStub = string;
 
 export interface Tag {
-  stub: TagStub;
-  title: string;
-  description: string;
+  tagID: string;
+  name: string;
+  stub?: TagStub;
+  description?: string;
+  engagementScore?: number;
+  engagementScoreOverride?: number;
+  questionCount?: number;
 }
 
 export interface TagStats {
