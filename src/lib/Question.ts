@@ -62,11 +62,11 @@ export type QuestionPrerequisiteGroup = {
 
 export type QuestionPrerequisiteProbability = {
   questionID: QuestionID;
+  question: string;
   answerID: AnswerID;
-  /**
-   * 0 to 1 percent of how likely
-   */
-  probability: number;
+  answer: string;
+  engagementScore?: number;
+  engagementScoreOverride?: number;
 };
 
 export type QuestionType = "Election" | "Opinion" | "Proposition" | "Yes/No" | "Rather";
