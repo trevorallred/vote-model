@@ -40,6 +40,10 @@ export interface Profile extends User {
   phoneConfirmed?: boolean;
   address?: string;
   pushToken?: string;
+  promptForPushNotifications?: number;
+  /**
+   * @deprecated
+   */
   pushNotifications?: boolean;
 }
 
@@ -51,6 +55,7 @@ export type ProfileEditableFields =
   | "handle"
   | "address"
   | "pushToken"
+  | "promptForPushNotifications"
   | "pushNotifications"
   | "lastSeen";
 
