@@ -3,11 +3,6 @@ export type UserHandle = string;
 
 export interface User extends UserTiny {
   /**
-   * @deprecated use firstName and lastName
-   * Remove once name doesn't exist in DDB anymore
-   */
-  name?: string;
-  /**
    * Member since
    */
   registrationDate?: number;
@@ -18,7 +13,6 @@ export interface User extends UserTiny {
   about?: string;
   followers?: number;
   following?: number;
-  score?: number;
 }
 
 export interface UserTiny {
@@ -29,6 +23,7 @@ export interface UserTiny {
   firstName?: string;
   lastName?: string;
   followingState?: FollowingState;
+  score?: number;
 }
 
 export interface Profile extends User {
